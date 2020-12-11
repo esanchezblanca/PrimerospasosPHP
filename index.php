@@ -1,4 +1,21 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h1>
+<?php 
+
+include 'header.php';
+
+echo "$cabecera a mi página";
+?>
+</h1>
+
+<?php 
 $arrayPlatos = [
     ["titulo" => "pollo",
      "comensales" => 2,
@@ -9,7 +26,7 @@ $arrayPlatos = [
             "cantidad" => 2,
          ],
          [
-             "nombre" => "limón",
+             "nombre" => ", limón",
              "cantidad" => 24
          ]
         
@@ -25,7 +42,7 @@ $arrayPlatos = [
             "cantidad" => 2,
          ],
          [
-             "nombre" => "salsa",
+             "nombre" => ", salsa",
              "cantidad" => 24
          ]
         
@@ -41,24 +58,42 @@ $arrayPlatos = [
             "cantidad" => 10,
          ],
          [
-             "nombre" => "arándanos",
+             "nombre" => ", arándanos",
              "cantidad" => 20
          ]
         
      ]
      ]
          ];
-         
+?>       
 
+<?php 
 foreach($arrayPlatos as $valor){
-    echo'<div>Plato: ' . $valor["titulo"].'</div>';
-    echo'<div>Tipo: ' . $valor["tipo de plato"].'</div>';
-    echo'<div>Comensales: ' . $valor["comensales"].'</div>';
-    echo'<div>Ingredientes:</div>'; 
-    foreach($valor['ingredientes'] as $ingrediente){
-        echo $ingrediente["nombre"];
-    };   
+
+    echo '<li style="color: red">Plato: ' . $valor["titulo"].'
+    
+        <ul style="color: blue">Tipo: ' . $valor["tipo de plato"].'</ul>
+        <ul style="color: green">Comensales: ' . $valor["comensales"].'</ul>
+        <ul style="color: orange">Ingredientes:</ul>'; 
+           foreach($valor['ingredientes'] as $ingrediente){
+             echo $ingrediente["nombre"];
+     };   
+    
+    
 }
 
-    
 ?>
+
+<h2>
+
+<?php 
+include 'footer.php';
+echo "$pie que vaya bien";
+?>
+</h2>
+
+
+</body>
+</html>
+
+
