@@ -18,25 +18,21 @@ $mysqli = conexion("localhost", "root", "", "restaurante");
 $platos = $mysqli->query("SELECT * FROM plato");
 
 
-function devuelvePlatos(object $conexion, string $id)
+function devuelvePlatos(object $conexion)
 {
-    return $conexion->query("SELECT * FROM plato WHERE $id");
+    return $conexion->query("SELECT * FROM plato");
 }
 
-function devuelveIngrediente(object $conexion, string $plato): object
-{
-    return $conexion->query("SELECT puente.cantidad, ingrediente.ingrediente FROM puente LEFT JOIN
-    ingrediente ON puente.idingrediente=ingrediente.id WHERE idplato=$plato");
-}
 
-foreach (devuelvePlatos($mysqli, $_GET["id"]) as $plato) { ?>
+foreach (devuelvePlatos($mysqli) as $plato) { ?>
     <ul>
-        <li> 
-        <a href="detalle.php">
-        Plato: <?= $plato["nombre"] ?>
-        </a>
+        <li>
+            <a href="http://localhost:81/prueba/detalle.php" . htmlspecialchars($_GET["id"])>
+                Plato: <?= $plato["nombre"] ?>
+            </a>
         </li>
 
-        
+
+
     </ul>
 <?php }
