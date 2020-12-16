@@ -1,7 +1,5 @@
 <?php
-
 declare(strict_types=1);
-
 
 function conexion(string $host, string $user, string $password, string $database): object
 {
@@ -12,27 +10,26 @@ function conexion(string $host, string $user, string $password, string $database
     }
     return ($mysqli);
 }
-
 $mysqli = conexion("localhost", "root", "", "restaurante");
 
 $platos = $mysqli->query("SELECT * FROM plato");
 
-
-function devuelvePlatos(object $conexion)
+function devuelvePlatos(object $mysqli)
 {
-    return $conexion->query("SELECT * FROM plato");
+    return $mysqli->query("SELECT * FROM plato");
 }
 
-
 foreach (devuelvePlatos($mysqli) as $plato) { ?>
-    <ul>
-        <li>
-            <a href="http://localhost:81/prueba/detalle.php" . htmlspecialchars($_GET["id"])>
+  
+  <ul>
+        <li> 
+            <a href="http://localhost:81/prueba/detalle.php?id=<?= $plato["id"] ?>">
                 Plato: <?= $plato["nombre"] ?>
             </a>
         </li>
-
-
-
+      
     </ul>
+
+    
+
 <?php }

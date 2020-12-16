@@ -15,38 +15,44 @@ function conexion(string $host, string $user, string $password, string $database
 
 $mysqli = conexion("localhost", "root", "", "restaurante");
 
-$platos = $mysqli->query("SELECT * FROM plato");
+$plato = $mysqli->query("SELECT * FROM plato");
+
 
 
 function devuelvePlato(object $conexion, string $id)
 {
-    return $conexion->query("SELECT * FROM plato WHERE id=$id");
+    $conexion->query("SELECT * FROM plato WHERE id=$id");
+    // if(empty($conexion == 0)) {
+    //     header('http://localhost:81/error.php');
+    //    exit;
+    // }
+    var_dump($conexion);
+    return $conexion;
 }
 
 function devuelveIngrediente(object $conexion, string $plato): object
 {
-    return $conexion->query("SELECT puente.cantidad, ingrediente.ingrediente FROM puente LEFT JOIN
-    ingrediente ON puente.idingrediente=ingrediente.id WHERE idplato=$plato");
+    return $conexion->query("SELECT * FROM puente LEFT JOIN
+    ingrediente ON ingrediente.id=puente.idingrediente  WHERE idplato=$plato");
+
+    return $conexion->query("SELECT * FROM puente LEFT JOIN ingrediente
+ON ingrediente.id = plato_Ingredientes.id_Ingredientes
+WHERE Platos_Ingredientes.id_Platos = $plate");
 }
 
-foreach (devuelvePlato($mysqli, $_GET["id"]) as $plato) { ?>
+//if(isset($plato)) {
+//echo 'Cargando';
+//}
+
+foreach (devuelvePlato($mysqli, $_GET["id"]) as $plato) {
+    var_dump($plato);
+?>
     <ul>
         <li>Plato: <?= $plato["nombre"] ?></li>
         <li>Comensales: <?= $plato["comensales"] ?></li>
-        <li>Tipo: <?= $plato["tipo"] ?></li>
+        <li>Tipo: <?= $plato["tipo"] ?>
         <li>Ingredientes:</li>
 
-        <ul>
-            <?php
-            foreach (devuelveIngrediente($mysqli, $plato["id"]) as $ingrediente) {
-            ?>
 
-                <li><?= $ingrediente["cantidad"] . " " . $ingrediente["ingrediente"] ?></li>
-
-
-            <?php
-            };
-            ?>
-        </ul>
     </ul>
 <?php }
